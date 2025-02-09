@@ -25,8 +25,6 @@ def update_pixels(indexes, color):
     for i in range(len(pixels)):
             if i in indexes:
                     pixels[i] = color
-            else:
-                    pixels[i] = (0,0,0)
 
 
 def get_stop_ids(line):
@@ -42,8 +40,8 @@ while 1:
     info += print_stops(oneline)
     info += print_stops(twoline)
     print(tabulate(info, headers=["Next Stop", "Destination", "Status", "Time Next Stop", "Time Closest Stop"]))
-    indexes = [stops.index(x)+2 for x in get_stop_ids(oneline)]
-    indexes += [stops.index(x)+2 for x in get_stop_ids(twoline)]
-    update_pixels(indexes, (0, 150, 0))
+    update_pixels(range(len(pixels)), (0, 0, 0))
+    update_pixels([stops.index(x) + 2 for x in get_stop_ids(oneline)], (0, 150, 0))
+    update_pixels([stops.index(x) + 2 for x in get_stop_ids(twoline)], (0, 0, 150))
     sleep(10)
     print("\n\n")
