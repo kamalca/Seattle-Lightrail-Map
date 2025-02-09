@@ -77,4 +77,7 @@ stops = [
 "", # Kent Des Moines
 "", # Star Lake
 "", # Federal Way
+"", # Blank light (Testing)
+"96_SC", # Seattle Center (Testing)
+"96_WL", # Westlake Center (Testing)
 ]

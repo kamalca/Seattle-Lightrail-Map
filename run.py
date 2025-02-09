@@ -11,6 +11,7 @@ from stops import stops
 client = OnebusawaySDK(api_key=os.environ["OBA_API_KEY"])
 oneline = "40_100479"
 twoline = "40_2LINE"
+monorail = "96_SCM"
 
 pixels = neopixel.NeoPixel(board.D18, 100, pixel_order=neopixel.RGB)
 
@@ -56,6 +57,7 @@ while 1:
     info = []
     info += print_stops(oneline)
     info += print_stops(twoline)
+    info += print_stops(monorail)
     print(
         tabulate(
             info,
@@ -71,6 +73,7 @@ while 1:
     pixel_status = [(0, 0, 0)] * 100
     update_status(pixel_status, oneline, (0, 150, 0))
     update_status(pixel_status, twoline, (0, 0, 150))
+    update_status(pixel_status, monorail, (150, 0, 0))
     update_pixels(pixels, pixel_status)
     sleep(10)
     print("\n\n")
