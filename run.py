@@ -33,10 +33,9 @@ def print_stops(line):
     return ret
 
 
-def update_pixels(indexes, color):
-    for i in range(len(pixels)):
-        if i in indexes:
-            pixels[i] = color
+def update_pixels(pixels, status):
+    for i, color in enumerate(status):
+        pixels[i] = color
 
 
 def get_stop_ids(line):
@@ -45,6 +44,12 @@ def get_stop_ids(line):
     for trip in trips.data.list:
         ret.append(trip.status.next_stop)
     return ret
+
+
+def update_status(pixel_status, line, color):
+    indexes = [stops.index(x) + 2 for x in get_stop_ids(line)]
+    for i in indexes:
+        pixel_status[i] = color
 
 
 while 1:
@@ -63,8 +68,9 @@ while 1:
             ],
         )
     )
-    update_pixels(range(len(pixels)), (0, 0, 0))
-    update_pixels([stops.index(x) + 2 for x in get_stop_ids(oneline)], (0, 150, 0))
-    update_pixels([stops.index(x) + 2 for x in get_stop_ids(twoline)], (0, 0, 150))
+    pixel_status = [(0, 0, 0)] * 100
+    update_status(pixel_status, oneline, (0, 150, 0))
+    update_status(pixel_status, twoline, (0, 0, 150))
+    update_pixels(pixels, pixel_status)
     sleep(10)
     print("\n\n")
